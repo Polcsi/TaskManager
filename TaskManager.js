@@ -50,7 +50,7 @@ class TaskManager extends HTMLElement
     
             this.create();
     
-            this.selectElement = this.root.getElementById('input');
+            this.selectElement = this.root.getElementById(this.id);
             this.container = this.root.querySelector('.result-container');
         } catch(err) {
             console.log(`%c ${err}`, 'color: red;');
@@ -66,6 +66,7 @@ class TaskManager extends HTMLElement
 
         optionTitle.value = "";
         optionTitle.textContent = "--Please Choose a Task--";
+        optionTitle.style = "text-align: center;"
 
         select.appendChild(optionTitle);
 
@@ -99,10 +100,10 @@ class TaskManager extends HTMLElement
 
     selectTask()
     {
-        if(this.selectElement.value == 'first')
+        if(this.selectElement.value == this.values[0])
         {
             this.firstTask();
-        } else if (this.selectElement.value == 'second') {
+        } else if (this.selectElement.value == this.values[1]) {
             this.secondTask();
         } else {
             this.clear();
@@ -134,7 +135,7 @@ class TaskManager extends HTMLElement
         const span = document.createElement("span");
         const p = document.createElement("p");
 
-        span.textContent = "Eredmény:";
+        span.textContent = "Result:";
         div.setAttribute("class", "result");
         p.id = "out";
 
@@ -152,10 +153,10 @@ class TaskManager extends HTMLElement
 
             const out = this.root.getElementById('out');
     
-            const aSide = parseFloat(window.prompt("Kérem az 'a' oldal hosszát!"));
-            const bSide = parseFloat(window.prompt("Kérem az 'b' oldal hosszát!"));
+            const aSide = parseFloat(window.prompt("Give me the 'a' side length!"));
+            const bSide = parseFloat(window.prompt("Give me the 'b' side length!"));
             
-            out.textContent = `Kerület: ${await TaskManager.kerulet(aSide, bSide)}; Terület: ${await TaskManager.terulet(aSide, bSide)};`;
+            out.textContent = `District: ${await TaskManager.kerulet(aSide, bSide)}; Area: ${await TaskManager.terulet(aSide, bSide)};`;
         } catch(err) {
             console.log(`%c ${err}`, 'color: red;')
         }
@@ -205,7 +206,7 @@ class TaskManager extends HTMLElement
     
             this.selectElement.removeAttribute("disabled");
             
-            alert(`Legkisebb szám: ${min}`);
+            alert(`Smallest number: ${min}`);
         } catch(err) {
             console.log(`%c ${err}`, 'color: red;')
         }
